@@ -23,8 +23,10 @@
 (ert-deftest obj-test-04-2nd-argument-is-symbol ()
   (should (equal
     (cdr (should-error
-      (obj (obj) nil)
+      (obj (obj) 1)
       :type 'obj-error))
-    "second argument should be keyword symbol or symbol")))
+    "second argument should be keyword symbol or symbol"))
+  (obj (obj) :somecommand)
+  (obj (obj) 'somemember))
 
 (ert t)
