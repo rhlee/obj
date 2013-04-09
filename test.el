@@ -61,6 +61,13 @@
       :type 'obj-error)))
     'member-after-command)))
 
+(ert-deftest obj-test-08-invalid-command ()
+  (should (equal
+    (car (cdr (should-error
+      (obj (obj) :test 'test)
+      :type 'obj-error)))
+    'invalid-command)))
+
 (ert t)
 ;;command no 
 ;;next after
