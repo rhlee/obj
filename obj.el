@@ -3,5 +3,7 @@
 
 (defun obj (&rest args)
   (if args
-    (signal 'obj-error "first argument should ba a hash-table")
+    (if (hash-table-p (car args))
+      (signal 'obj-error "command or member required after object")
+      (signal 'obj-error "first argument should ba a hash-table"))
     (make-hash-table)))
