@@ -67,7 +67,15 @@
       :type 'obj-error)))
     'invalid-command)))
 
+(ert-deftest obj-test-09-set-requires-value ()
+  (should (equal
+    (car (cdr (should-error
+      (obj (obj) :set 'test)
+      :type 'obj-error)))
+    'requires-value)))
+
 (ert t)
-;;command no 
+;;set
 ;;next after
-;;invalid command
+;;auto
+;;show mode in error
