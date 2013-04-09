@@ -32,7 +32,7 @@
       (obj (obj) 1)
       :type 'obj-error))
     "second argument should be keyword symbol or symbol"))
-  (obj (obj) :somecommand)
+  (obj (obj) :somecommand nil)
   (obj (obj) 'somemember))
 
 (ert-deftest obj-test-05-set-returns-same-value ()

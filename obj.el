@@ -18,8 +18,11 @@
               (cond
                 ((keywordp command-or-member)
                   (setq command command-or-member)
-                  (setq member (car args))
-                  (setq args (cdr args)))
+                  (if args
+                    (progn
+                      (setq member (car args))
+                      (setq args (cdr args)))
+                    (signal 'obj-error "member required after command")))
                 ((symbolp command-or-member)
                   ())
                 (t (signal 'obj-error
