@@ -1,4 +1,10 @@
 (require 'ert)
+
+(defun obj-test-generate-random-string (limit)
+  (let ((s ""))
+    (dotimes (number (+ (random limit) 1) s)
+      (setq s (concat s (char-to-string (+ 97 (random 26))))))))
+
 (load-file "obj.el")
 (ert-delete-all-tests)
 
@@ -28,5 +34,14 @@
     "second argument should be keyword symbol or symbol"))
   (obj (obj) :somecommand)
   (obj (obj) 'somemember))
+
+(ert-deftest obj-test-05-set-returns-same-value ()
+  (let
+    ((property-symbol (intern (obj-test-generate-random-string 10)))
+      (property-value (obj-test-generate-random-string 10))
+      (object (obj)))
+    (should (eq
+      (obj object :set property-symbol property-value)
+      property-value))))
 
 (ert t)
