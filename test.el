@@ -20,4 +20,11 @@
       :type 'obj-error))
     "command or member required after object")))
 
+(ert-deftest obj-test-04-2nd-argument-is-symbol ()
+  (should (equal
+    (cdr (should-error
+      (obj (obj) nil)
+      :type 'obj-error))
+    "second argument should be keyword symbol or symbol")))
+
 (ert t)
