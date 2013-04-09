@@ -1,6 +1,16 @@
 (put 'obj-error 'error-conditions '(error obj-error))
 (put 'obj-error 'error-message "obj error")
 
+(defun signal-obj-error (data)
+  (let* ((errors
+    '((first-argument . "first argument should be a hash-table")
+      (second-argument .
+"second argument should be command (keyword symbol) or member (symbol)")
+      (member-after-command . "member required after command")))
+    (error-assoc (or (assoc data errors)
+      '(unspecified-error . "unspecified error"))))
+    (signal 'obj-error (list (car error-assoc) (cdr error-assoc)))))
+
 (defun obj (&rest args)
   (let
     ((object)
@@ -22,16 +32,17 @@
                     (progn
                       (setq member (car args))
                       (setq args (cdr args)))
-                    (signal 'obj-error "member required after command")))
+                    (signal-obj-error 'member-after-command)))
                 ((symbolp command-or-member)
                   ())
-                (t (signal 'obj-error
-                  "second argument should be keyword symbol or symbol"))))
-            (signal 'obj-error "command or member required after object"))
+                (t (signal-obj-error 'second-argument))))
+            (signal-obj-error 'second-argument))
           (cond
             ((eq command :set)
               (puthash :member (car args) object))
             ((eq command :get)
               (gethash :member object))))
-        (signal 'obj-error "first argument should ba a hash-table"))
+        (signal-obj-error 'first-argument))
       (make-hash-table))))
+;;or
+;;move args down

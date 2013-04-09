@@ -14,24 +14,24 @@
 
 (ert-deftest obj-test-02-first-argument-is-hash-table ()
   (should (equal
-    (cdr (should-error
+    (car (cdr (should-error
       (obj nil)
-      :type 'obj-error))
-    "first argument should ba a hash-table")))
+      :type 'obj-error)))
+    'first-argument)))
 
 (ert-deftest obj-test-03-command-or-member-required-after-object ()
   (should (equal
-    (cdr (should-error
+    (car (cdr (should-error
       (obj (obj))
-      :type 'obj-error))
-    "command or member required after object")))
+      :type 'obj-error)))
+    'second-argument)))
 
 (ert-deftest obj-test-04-2nd-argument-is-symbol ()
   (should (equal
-    (cdr (should-error
+    (car (cdr (should-error
       (obj (obj) 1)
-      :type 'obj-error))
-    "second argument should be keyword symbol or symbol"))
+      :type 'obj-error)))
+    'second-argument))
   (obj (obj) :somecommand nil)
   (obj (obj) 'somemember))
 
@@ -56,10 +56,10 @@
 
 (ert-deftest obj-test-07-member-required-after-command ()
   (should (equal
-    (cdr (should-error
+    (car (cdr (should-error
       (obj (obj) :set)
-      :type 'obj-error))
-    "member required after command")))
+      :type 'obj-error)))
+    'member-after-command)))
 
 (ert t)
 ;;command no 
