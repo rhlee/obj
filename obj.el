@@ -3,8 +3,7 @@
 
 (defun obj (&rest args)
   (let
-    ((return-value)
-    (object)
+    ((object)
     (command-or-member)
     (command)
     (member))
@@ -20,13 +19,16 @@
                 ((keywordp command-or-member)
                   (setq command command-or-member)
                   (setq member (car args))
-                  (setq return-value (car (cdr args))))
+                  (setq args (cdr args)))
                 ((symbolp command-or-member)
                   ())
                 (t (signal 'obj-error
                   "second argument should be keyword symbol or symbol"))))
             (signal 'obj-error "command or member required after object"))
-          return-value)
+          (cond
+            ((eq command :set)
+              (puthash :member (car args) object))
+            ((eq command :get)
+              (gethash :member object))))
         (signal 'obj-error "first argument should ba a hash-table"))
       (make-hash-table))))
-;;after command leave if
