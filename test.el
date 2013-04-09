@@ -44,4 +44,16 @@
       (obj object :set property-symbol property-value)
       property-value))))
 
+(ert-deftest obj-test-06-get-returns-set-value ()
+  (let
+    ((property-symbol (intern (obj-test-generate-random-string 10)))
+      (property-value (obj-test-generate-random-string 10))
+      (object (obj)))
+    (obj object :set property-symbol property-value)
+    (should (eq
+      (obj object :get property-symbol)
+      property-value))))
+
 (ert t)
+
+;;next after
