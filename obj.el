@@ -6,7 +6,8 @@
     '((first-argument . "first argument should be a hash-table")
       (second-argument .
 "second argument should be command (keyword symbol) or member (symbol)")
-      (member-after-command . "member required after command")))
+      (member-after-command . "member required after command")
+      (invalid-command . "invalid command")))
     (error-assoc (or (assoc data errors)
       '(unspecified-error . "unspecified error"))))
     (signal 'obj-error (list (car error-assoc) (cdr error-assoc)))))
@@ -41,7 +42,8 @@
             ((eq command :set)
               (puthash :member (car args) object))
             ((eq command :get)
-              (gethash :member object))))
+              (gethash :member object))
+            (t (signal-obj-error 'invalid-command))))
         (signal-obj-error 'first-argument))
       (make-hash-table))))
 ;;or

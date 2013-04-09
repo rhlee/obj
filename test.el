@@ -32,8 +32,7 @@
       (obj (obj) 1)
       :type 'obj-error)))
     'second-argument))
-  (obj (obj) :somecommand nil)
-  (obj (obj) 'somemember))
+  (obj (obj) :get nil))
 
 (ert-deftest obj-test-05-set-returns-same-value ()
   (let
