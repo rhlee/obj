@@ -54,6 +54,14 @@
       (obj object :get property-symbol)
       property-value))))
 
-(ert t)
+(ert-deftest obj-test-07-member-required-after-command ()
+  (should (equal
+    (cdr (should-error
+      (obj (obj) :set)
+      :type 'obj-error))
+    "member required after command")))
 
+(ert t)
+;;command no 
 ;;next after
+;;invalid command
