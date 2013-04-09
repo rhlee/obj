@@ -13,4 +13,11 @@
       :type 'obj-error))
     "first argument should ba a hash-table")))
 
+(ert-deftest obj-test-03-command-or-member-required-after-object ()
+  (should (equal
+    (cdr (should-error
+      (obj (obj))
+      :type 'obj-error))
+    "command or member required after object")))
+
 (ert t)
