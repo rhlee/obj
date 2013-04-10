@@ -103,5 +103,17 @@
         :type 'obj-error))))
     :set)))
 
+(ert-deftest obj-test-13-auto-sets-pair ()
+  (let
+    ((property-symbol (intern (obj-test-generate-random-string 10)))
+      (property-value (obj-test-generate-random-string 10))
+      (object (obj)))
+    (obj object property-symbol property-value)
+    (should (eq
+      (obj object :get property-symbol)
+      property-value))))
+
 (ert t)
 ;;auto
+;;sym->key
+;;skip command if nil in error
