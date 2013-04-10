@@ -13,21 +13,21 @@
     (hash-table-p (obj))))
 
 (ert-deftest obj-test-02-first-argument-is-hash-table ()
-  (should (equal
+  (should (eq
     (car (cdr (should-error
       (obj nil)
       :type 'obj-error)))
     'first-argument)))
 
 (ert-deftest obj-test-03-command-or-member-required-after-object ()
-  (should (equal
+  (should (eq
     (car (cdr (should-error
       (obj (obj))
       :type 'obj-error)))
     'second-argument)))
 
 (ert-deftest obj-test-04-2nd-argument-is-symbol ()
-  (should (equal
+  (should (eq
     (car (cdr (should-error
       (obj (obj) 1)
       :type 'obj-error)))
@@ -54,28 +54,28 @@
       property-value))))
 
 (ert-deftest obj-test-07-member-required-after-command ()
-  (should (equal
+  (should (eq
     (car (cdr (should-error
       (obj (obj) :set)
       :type 'obj-error)))
     'member-after-command)))
 
 (ert-deftest obj-test-08-invalid-command ()
-  (should (equal
+  (should (eq
     (car (cdr (should-error
       (obj (obj) :test 'test)
       :type 'obj-error)))
     'invalid-command)))
 
 (ert-deftest obj-test-09-set-requires-value ()
-  (should (equal
+  (should (eq
     (car (cdr (should-error
       (obj (obj) :set 'test)
       :type 'obj-error)))
     'value-error)))
 
 (ert-deftest obj-test-10-set-requires-1-value-exactly ()
-  (should (equal
+  (should (eq
     (car (cdr (should-error
       (obj (obj) :set 'test 123 123)
       :type 'obj-error)))
@@ -85,3 +85,4 @@
 ;;next after
 ;;auto
 ;;show mode in error
+;;get nothing
