@@ -72,9 +72,9 @@
     (car (cdr (should-error
       (obj (obj) :set 'test)
       :type 'obj-error)))
-    'requires-value)))
+    'value-error)))
 
-(ert-deftest obj-test-10-set-requires-1-value-only ()
+(ert-deftest obj-test-10-set-requires-1-value-exactly ()
   (should (equal
     (car (cdr (should-error
       (obj (obj) :set 'test 123 123)
