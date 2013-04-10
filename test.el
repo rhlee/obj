@@ -95,9 +95,13 @@
       (cdr (should-error
         (obj (obj) :get 'test 123 123)
         :type 'obj-error))))
-    :get)))
-
+    :get))
+  (should (eq
+    (cdr (assoc 'command
+      (cdr (should-error
+        (obj (obj) :set 'test 123 123)
+        :type 'obj-error))))
+    :set)))
 
 (ert t)
 ;;auto
-;;show mode in error
