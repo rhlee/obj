@@ -89,7 +89,5 @@
     'value-error)))
 
 (ert t)
-;;next after
 ;;auto
 ;;show mode in error
-;;get nothing
