@@ -91,10 +91,10 @@
 
 (ert-deftest obj-test-12-mode-in-error-data ()
   (should (eq
-    (assoc 'command (cdr (should-error
+    (cdr (assoc 'command
+      (cdr (should-error
         (obj (obj) :get 'test 123 123)
-        :type 'obj-error))
-      )
+        :type 'obj-error))))
     :get)))
 
 
