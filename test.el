@@ -74,8 +74,14 @@
       :type 'obj-error)))
     'requires-value)))
 
+(ert-deftest obj-test-10-set-requires-1-value-only ()
+  (should (equal
+    (car (cdr (should-error
+      (obj (obj) :set 'test 123 123)
+      :type 'obj-error)))
+    'value-error)))
+
 (ert t)
-;;set
 ;;next after
 ;;auto
 ;;show mode in error
