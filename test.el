@@ -6,6 +6,7 @@
       (setq s (concat s (char-to-string (+ 97 (random 26))))))))
 
 (load-file "obj.el")
+
 (ert-delete-all-tests)
 
 (ert-deftest obj-test-01-new-object-is-hash-table ()
@@ -87,6 +88,15 @@
       (obj (obj) :get 'test 123 123)
       :type 'obj-error)))
     'value-error)))
+
+(ert-deftest obj-test-12-mode-in-error-data ()
+  (should (eq
+    (assoc 'command (cdr (should-error
+        (obj (obj) :get 'test 123 123)
+        :type 'obj-error))
+      )
+    :get)))
+
 
 (ert t)
 ;;auto
