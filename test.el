@@ -81,6 +81,13 @@
       :type 'obj-error)))
     'value-error)))
 
+(ert-deftest obj-test-11-get-takes-no-value ()
+  (should (eq
+    (car (cdr (should-error
+      (obj (obj) :get 'test 123 123)
+      :type 'obj-error)))
+    'value-error)))
+
 (ert t)
 ;;next after
 ;;auto
