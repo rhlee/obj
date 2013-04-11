@@ -113,6 +113,16 @@
       (obj object :get property-symbol)
       property-value))))
 
+(ert-deftest obj-test-14-auto-gets-pair ()
+  (let
+    ((property-symbol (intern (obj-test-generate-random-string 10)))
+      (property-value (obj-test-generate-random-string 10))
+      (object (obj)))
+    (obj object property-symbol property-value)
+    (should (eq
+      (obj object :get property-symbol)
+      property-value))))
+
 (ert t)
 ;;sym->key
 ;;skip command if nil in error
