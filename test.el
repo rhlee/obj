@@ -139,6 +139,13 @@
       (obj object :call 'add a b)
       (+ a b)))))
 
+(ert-deftest obj-test-17-no-value ()
+  (should (eq
+    (car (cdr (should-error
+      (obj (obj) :get 'test)
+      :type 'obj-error)))
+    'no-value)))
+
 (ert t)
 ;;get nil
 ;;autocall
