@@ -37,22 +37,22 @@
 
 (ert-deftest obj-test-05-set-returns-same-value ()
   (let
-    ((property-symbol (intern (obj-test-generate-random-string 10)))
-      (property-value (obj-test-generate-random-string 10))
+    ((key (intern (obj-test-generate-random-string 10)))
+      (value (obj-test-generate-random-string 10))
       (object (obj)))
     (should (eq
-      (obj object :set property-symbol property-value)
-      property-value))))
+      (obj object :set key value)
+      value))))
 
 (ert-deftest obj-test-06-get-returns-set-value ()
   (let
-    ((property-symbol (intern (obj-test-generate-random-string 10)))
-      (property-value (obj-test-generate-random-string 10))
+    ((key (intern (obj-test-generate-random-string 10)))
+      (value (obj-test-generate-random-string 10))
       (object (obj)))
-    (obj object :set property-symbol property-value)
+    (obj object :set key value)
     (should (eq
-      (obj object :get property-symbol)
-      property-value))))
+      (obj object :get key)
+      value))))
 
 (ert-deftest obj-test-07-member-required-after-command ()
   (should (eq
@@ -105,24 +105,23 @@
 
 (ert-deftest obj-test-13-auto-sets-pair ()
   (let
-    ((property-symbol (intern (obj-test-generate-random-string 10)))
-      (property-value (obj-test-generate-random-string 10))
+    ((key (intern (obj-test-generate-random-string 10)))
+      (value (obj-test-generate-random-string 10))
       (object (obj)))
-    (obj object property-symbol property-value)
+    (obj object key value)
     (should (eq
-      (obj object :get property-symbol)
-      property-value))))
+      (obj object :get key)
+      value))))
 
 (ert-deftest obj-test-14-auto-gets-pair ()
   (let
-    ((property-symbol (intern (obj-test-generate-random-string 10)))
-      (property-value (obj-test-generate-random-string 10))
+    ((key (intern (obj-test-generate-random-string 10)))
+      (value (obj-test-generate-random-string 10))
       (object (obj)))
-    (obj object property-symbol property-value)
+    (obj object key value)
     (should (eq
-      (obj object :get property-symbol)
-      property-value))))
+      (obj object :get key)
+      value))))
 
 (ert t)
-;;sym->key
 ;;skip command if nil in error
