@@ -11,7 +11,8 @@
       (member-after-command . "member required after command")
       (invalid-command . "invalid command")
       (value-error .
-"after member: :set takes 1 value exactly, :get takes no value")))
+"after member: :set takes 1 value exactly, :get takes no value")
+      (no-value . "key has no associated value")))
     (error-assoc (or (assoc data errors)
       '(unspecified-error . "unspecified error"))))
     (signal 'obj-error
@@ -69,7 +70,11 @@
                 (signal-obj-error 'value-error command)))
             ((eq command :get)
               (if (eq value-length 0)
-                (or fetched-value (gethash member object))
+                (or fetched-value
+                  (let ((value (gethash member object obj-nil)))
+                    (if (eq value obj-nil)
+                      (signal-obj-error 'no-value command)
+                      value)))
                 (signal-obj-error 'value-error command)))
             ((eq command :call)
               (apply (gethash member object) args))
