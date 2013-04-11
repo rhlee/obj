@@ -32,8 +32,7 @@
     (car (cdr (should-error
       (obj (obj) 1)
       :type 'obj-error)))
-    'second-argument))
-  (obj (obj) :get nil))
+    'second-argument)))
 
 (ert-deftest obj-test-05-set-returns-same-value ()
   (let
