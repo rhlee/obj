@@ -129,5 +129,14 @@
       (obj nil)
       :type 'obj-error))))))
 
+(ert-deftest obj-test-16-call ()
+  (let
+    ((a (random 10))
+      (b (random 10))
+      (object (obj)))
+    (obj object 'add (symbol-function '+))
+    (should (eq
+      (obj object :call 'add a b)
+      (+ a b)))))
+
 (ert t)
-;;skip command if nil in error
