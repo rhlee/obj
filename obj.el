@@ -71,6 +71,8 @@
               (if (eq value-length 0)
                 (or fetched-value (gethash member object))
                 (signal-obj-error 'value-error command)))
+            ((eq command :call)
+              (apply (gethash member object) args))
             (t (signal-obj-error 'invalid-command command))))
         (signal-obj-error 'first-argument command))
       (make-hash-table))))

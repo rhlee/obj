@@ -140,3 +140,5 @@
       (+ a b)))))
 
 (ert t)
+;;get nil
+;;autocall
