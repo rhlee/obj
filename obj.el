@@ -39,9 +39,8 @@
                   (if args
                     (progn
                       (setq member (car args))
-                      (setq args (cdr args))) ;;after/noneed?
+                      (setq args (cdr args)))
                     (signal-obj-error 'member-after-command command)))
-                ;nil? just don't check
                 ((symbolp command-or-member)
                   (setq fetched-value
                     (gethash command-or-member object obj-nil))
@@ -56,14 +55,13 @@
           (cond
             ((eq command :set)
               (if (eq value-length 1)
-                (puthash :member (car args) object);wat?
+                (puthash member (car args) object)
                 (signal-obj-error 'value-error command)))
             ((eq command :get)
               (if (eq value-length 0)
-                (gethash :member object);wat?
+                (or fetched-value (gethash member object))
                 (signal-obj-error 'value-error command)))
             (t (signal-obj-error 'invalid-command command))))
         (signal-obj-error 'first-argument command))
       (make-hash-table))))
 ;;move args down (into cond)
-;;prognthen

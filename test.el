@@ -114,7 +114,5 @@
       property-value))))
 
 (ert t)
-;;auto
 ;;sym->key
 ;;skip command if nil in error
-;;preload value
