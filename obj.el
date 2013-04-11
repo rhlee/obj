@@ -59,7 +59,7 @@
                     (progn
                       (setq command :set)
                       (setq member command-or-member))
-                    (setq command :get)))
+                    (setq command (if (functionp fetched-value) :call :get))))
                 (t (signal-obj-error 'second-argument command))))
             (signal-obj-error 'second-argument command ))
           (setq value-length (length args))
@@ -77,7 +77,7 @@
                       value)))
                 (signal-obj-error 'value-error command)))
             ((eq command :call)
-              (apply (gethash member object) args))
+              (apply (or fetched-value (gethash member object)) args))
             (t (signal-obj-error 'invalid-command command))))
         (signal-obj-error 'first-argument command))
       (make-hash-table))))
