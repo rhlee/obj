@@ -133,7 +133,7 @@
     ((a (random 10))
       (b (random 10))
       (object (obj)))
-    (obj object 'add (symbol-function '+))
+    (obj object 'add (lambda (o a b) (+ a b)))
     (should (eq
       (obj object :call 'add a b)
       (+ a b)))))
@@ -150,7 +150,7 @@
     ((a (random 10))
       (b (random 10))
       (object (obj)))
-    (obj object 'add (symbol-function '+))
+    (obj object 'add (lambda (o a b) (+ a b)))
     (should (eq
       (obj object 'add a b)
       (+ a b)))))
@@ -158,10 +158,9 @@
 (ert-deftest obj-test-19-object-passed ()
   (let
     ((object (obj)))
-    (obj 'test (lambda (o) o))
+    (obj object 'test (lambda (o) o))
     (should (eq
       (obj object 'test)
       object))))
 
 (ert t)
-;;method
