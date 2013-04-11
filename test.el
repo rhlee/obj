@@ -117,3 +117,4 @@
 ;;auto
 ;;sym->key
 ;;skip command if nil in error
+;;preload value

@@ -1,6 +1,8 @@
 (put 'obj-error 'error-conditions '(error obj-error))
 (put 'obj-error 'error-message "obj error")
 
+(setq obj-nil (make-symbol "obj-nil"))
+
 (defun signal-obj-error (data command)
   (let* ((errors
     '((first-argument . "first argument should be a hash-table")
@@ -21,7 +23,8 @@
     (command-or-member)
     (command)
     (member)
-    (value-length))
+    (value-length)
+    (fetched-value))
     (if args
       (if (hash-table-p (setq object (car args)))
         (progn
@@ -36,23 +39,31 @@
                   (if args
                     (progn
                       (setq member (car args))
-                      (setq args (cdr args)))
+                      (setq args (cdr args))) ;;after/noneed?
                     (signal-obj-error 'member-after-command command)))
+                ;nil? just don't check
                 ((symbolp command-or-member)
-                  ())
+                  (setq fetched-value
+                    (gethash command-or-member object obj-nil))
+                  (if (eq fetched-value obj-nil)
+                    (progn
+                      (setq command :set)
+                      (setq member command-or-member))
+                    (setq command :get)))
                 (t (signal-obj-error 'second-argument command))))
             (signal-obj-error 'second-argument command ))
           (setq value-length (length args))
           (cond
             ((eq command :set)
               (if (eq value-length 1)
-                (puthash :member (car args) object)
+                (puthash :member (car args) object);wat?
                 (signal-obj-error 'value-error command)))
             ((eq command :get)
               (if (eq value-length 0)
-                (gethash :member object)
+                (gethash :member object);wat?
                 (signal-obj-error 'value-error command)))
             (t (signal-obj-error 'invalid-command command))))
         (signal-obj-error 'first-argument command))
       (make-hash-table))))
 ;;move args down (into cond)
+;;prognthen
