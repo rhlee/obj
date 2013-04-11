@@ -145,6 +145,15 @@
       :type 'obj-error)))
     'no-value)))
 
+(ert-deftest obj-test-18-auto-call ()
+  (let
+    ((a (random 10))
+      (b (random 10))
+      (object (obj)))
+    (obj object 'add (symbol-function '+))
+    (should (eq
+      (obj object 'add a b)
+      (+ a b)))))
+
 (ert t)
-;;get nil
 ;;autocall
