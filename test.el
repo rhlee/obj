@@ -126,7 +126,7 @@
 (ert-deftest obj-test-15-no-command-in-error-if-nil ()
   (should (not (assoc 'command
     (cdr (should-error
-      (obj (obj) nil)
+      (obj nil)
       :type 'obj-error))))))
 
 (ert t)

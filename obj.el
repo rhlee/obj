@@ -14,8 +14,18 @@
 "after member: :set takes 1 value exactly, :get takes no value")))
     (error-assoc (or (assoc data errors)
       '(unspecified-error . "unspecified error"))))
-    (signal 'obj-error (list (car error-assoc) (cdr error-assoc)
-      (cons 'command command)))))
+    (signal 'obj-error
+      (cons
+        (car error-assoc)
+        (cons
+          (cdr error-assoc)
+          (if command
+            (cons
+              (cons
+                'command
+                command)
+              nil)
+            nil))))))
 
 (defun obj (&rest args)
   (let
