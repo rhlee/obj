@@ -163,4 +163,13 @@
       (obj object 'test)
       object))))
 
+(ert-deftest obj-test-20-with ()
+  (let
+    ((object (obj))
+    (x (random 10)))
+    (obj object 'x x)
+    (should (eq
+      (obj object :with 'x (lambda (value) (+ value 1)))
+      (+ x 1)))))
+
 (ert t)
