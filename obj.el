@@ -92,6 +92,8 @@
                   (error-if-obj-nil (gethash member object obj-nil) command)
                   (cdr args))
                 object))
+            ((eq command :rem)
+              (remhash member object))
             (t (signal-obj-error 'invalid-command command))))
         (signal-obj-error 'first-argument command))
       (make-hash-table))))
