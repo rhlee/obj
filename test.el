@@ -5,6 +5,11 @@
     (dotimes (number (+ (random limit) 1) s)
       (setq s (concat s (char-to-string (+ 97 (random 26))))))))
 
+(defun obj-test-random-number-list (limit &optional last-value)
+  (let ((value (if last-value (cons last-value nil))))
+    (dotimes (count (+ (random (- limit 1)) 1) value)
+      (setq value (cons (random limit) value)))))
+
 (load-file "obj.el")
 
 (ert-delete-all-tests)
@@ -233,8 +238,18 @@
       :type 'obj-error)))
     'value-error)))
 
+(ert-deftest obj-test-28-apply ()
+  (let
+    ((apply-list
+      (obj-test-generate-random-number-list 10
+        (obj-test-generate-random-number-list 10)))
+    (object (obj)))
+    (obj object 'test (lambda (o &rest args) (apply '+ args)))
+    (should (eq
+      (obj object :apply 'test apply-list)
+      (apply 'apply '+ apply-list)))))
+
 (ert t)
 ;;check args
 
 ;;byte compile
-;;byte compile funcs
