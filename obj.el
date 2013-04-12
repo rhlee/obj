@@ -35,7 +35,8 @@
     (command)
     (member)
     (value-length)
-    (fetched-value))
+    (prefetched)
+    (prefetched-value))
     (if args
       (if (hash-table-p (setq object (car args)))
         (progn
@@ -53,13 +54,14 @@
                       (setq args (cdr args)))
                     (signal-obj-error 'member-after-command command)))
                 ((symbolp command-or-member)
-                  (setq fetched-value
+                  (setq prefetched-value
                     (gethash command-or-member object obj-nil))
-                  (if (eq fetched-value obj-nil)
+                  (setq prefetched t)
+                  (if (eq prefetched-value obj-nil)
                     (progn
                       (setq command :set)
                       (setq member command-or-member))
-                    (setq command (if (functionp fetched-value) :call :get))))
+                    (setq command (if (functionp prefetched-value) :call :get))))
                 (t (signal-obj-error 'second-argument command))))
             (signal-obj-error 'second-argument command ))
           (setq value-length (length args))
@@ -70,14 +72,15 @@
                 (signal-obj-error 'value-error command)))
             ((eq command :get)
               (if (eq value-length 0)
-                (or fetched-value
+                (if prefetched
+                  prefetched-value
                   (let ((value (gethash member object obj-nil)))
                     (if (eq value obj-nil)
                       (signal-obj-error 'no-value command)
                       value)))
                 (signal-obj-error 'value-error command)))
             ((eq command :call)
-              (apply (or fetched-value (gethash member object))
+              (apply (if prefetched prefetched-value (gethash member object))
                 (cons object args)))
             (t (signal-obj-error 'invalid-command command))))
         (signal-obj-error 'first-argument command))
