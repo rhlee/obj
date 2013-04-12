@@ -200,4 +200,11 @@
         :type 'obj-error)))
       'no-value))))
 
+(ert-deftest obj-test-23-exists ()
+  (let
+    ((object (obj)))
+    (should (not (obj object :exist 'x)))
+    (obj object 'x t)
+    (should (obj object :exist 'x))))
+
 (ert t)
