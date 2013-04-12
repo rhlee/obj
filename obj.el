@@ -15,7 +15,7 @@
       (member-after-command . "member required after command")
       (invalid-command . "invalid command")
       (value-error .
-"after member: :set takes 1 value exactly, :get takes no value")
+"after member: :set, get-or take 1 value exactly, :get, :rem, :exist takes no value")
       (no-value . "key has no associated value")))
     (error-assoc (or (assoc data errors)
       '(unspecified-error . "unspecified error"))))
@@ -38,7 +38,6 @@
     (command-or-member)
     (command)
     (member)
-    (value-length)
     (prefetched)
     (prefetched-value))
     (if args
@@ -68,10 +67,9 @@
                     (setq command (if (functionp prefetched-value) :call :get))))
                 (t (signal-obj-error 'second-argument command))))
             (signal-obj-error 'second-argument command ))
-          (setq value-length (length args))
           (cond
             ((eq command :set)
-              (if (eq value-length 1)
+              (if (eq (length args) 1)
                 (puthash member (car args) object)
                 (signal-obj-error 'value-error command)))
             ((eq command :get)
@@ -101,12 +99,10 @@
                 (signal-obj-error 'value-error command)
                 (not (eq (gethash member object obj-nil) obj-nil))))
             ((eq command :get-or)
-              (if (eq value-length 1)
+              (if (eq (length args) 1)
                 (gethash member object (car args))
                 (signal-obj-error 'value-error command)))
             (t (signal-obj-error 'invalid-command command))))
         (signal-obj-error 'first-argument command))
       (make-hash-table))))
 ;;move args down (into cond)
-;;update value messages
-;;put value length inline
