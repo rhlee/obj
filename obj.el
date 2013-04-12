@@ -85,7 +85,7 @@
                 (if prefetched
                   prefetched-value
                   (error-if-obj-nil (gethash member object obj-nil) command))
-                (cons object args)))
+                object args))
             ((eq command :with)
               (puthash member
                 (funcall (car args)
