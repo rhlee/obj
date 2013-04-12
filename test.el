@@ -212,5 +212,19 @@
     ((x (random 10)))
     (should (eq (obj (obj) :get-or 'x x) x))))
 
+(ert-deftest obj-test-25-rem-takes-no-value ()
+  (should (eq
+    (car (cdr (should-error
+      (obj (obj) :rem 'test 123 123)
+      :type 'obj-error)))
+    'value-error)))
+
+(ert-deftest obj-test-26-exist-takes-no-value ()
+  (should (eq
+    (car (cdr (should-error
+      (obj (obj) :exist 'test 123 123)
+      :type 'obj-error)))
+    'value-error)))
+
 (ert t)
 ;;check args
