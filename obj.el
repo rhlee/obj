@@ -96,6 +96,8 @@
               (remhash member object))
             ((eq command :exist)
               (not (eq (gethash member object obj-nil) obj-nil)))
+            ((eq command :get-or)
+              (gethash member object (car args)))
             (t (signal-obj-error 'invalid-command command))))
         (signal-obj-error 'first-argument command))
       (make-hash-table))))

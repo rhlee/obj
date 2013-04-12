@@ -207,4 +207,10 @@
     (obj object 'x t)
     (should (obj object :exist 'x))))
 
+(ert-deftest obj-test-24-get-or ()
+  (let
+    ((x (random 10)))
+    (should (eq (obj (obj) :get-or 'x x) x))))
+
 (ert t)
+;;check args
