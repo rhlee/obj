@@ -101,9 +101,12 @@
                 (signal-obj-error 'value-error command)
                 (not (eq (gethash member object obj-nil) obj-nil))))
             ((eq command :get-or)
-              (gethash member object (car args)))
+              (if (eq value-length 1)
+                (gethash member object (car args))
+                (signal-obj-error 'value-error command)))
             (t (signal-obj-error 'invalid-command command))))
         (signal-obj-error 'first-argument command))
       (make-hash-table))))
 ;;move args down (into cond)
-;;args nil?
+;;update value messages
+;;put value length inline

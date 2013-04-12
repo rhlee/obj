@@ -226,5 +226,15 @@
       :type 'obj-error)))
     'value-error)))
 
+(ert-deftest obj-test-27-get-or-takes-1-value-exactly ()
+  (should (eq
+    (car (cdr (should-error
+      (obj (obj) :get-or 'test 123 123 123)
+      :type 'obj-error)))
+    'value-error)))
+
 (ert t)
 ;;check args
+
+;;byte compile
+;;byte compile funcs
