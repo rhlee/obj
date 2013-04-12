@@ -175,6 +175,20 @@
       (obj object 'x)
       (+ x 1)))))
 
+(ert-deftest obj-test-21-with-args ()
+  (let
+    ((object (obj))
+    (x (random 10))
+    (y (random 10))
+    (z (random 10)))
+    (obj object 'x x)
+    (should (eq
+      (obj object :with 'x (symbol-function '+) y z)
+      (+ x y z)))
+    (should (eq
+      (obj object 'x)
+      (+ x y z)))))
+
 (ert t)
-;;with args and noval
+;;with args no args
 
