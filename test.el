@@ -170,6 +170,11 @@
     (obj object 'x x)
     (should (eq
       (obj object :with 'x (lambda (value) (+ value 1)))
+      (+ x 1)))
+    (should (eq
+      (obj object 'x)
       (+ x 1)))))
 
 (ert t)
+;;with args and noval
+
