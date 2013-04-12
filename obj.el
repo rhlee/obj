@@ -2,6 +2,10 @@
 (put 'obj-error 'error-message "obj error")
 
 (setq obj-nil (make-symbol "obj-nil"))
+(defun error-if-obj-nil (value command)
+  (if (eq value obj-nil)
+    (signal-obj-error 'no-value command)
+    value))
 
 (defun signal-obj-error (data command)
   (let* ((errors
@@ -74,13 +78,18 @@
               (if (eq value-length 0)
                 (if prefetched
                   prefetched-value
-                  (let ((value (gethash member object obj-nil)))
-                    (if (eq value obj-nil)
-                      (signal-obj-error 'no-value command)
-                      value)))
+                  ;; (let ((value (gethash member object obj-nil)))
+                  ;;   (if (eq value obj-nil)
+                  ;;     (signal-obj-error 'no-value command)
+                  ;;     value))
+                  (error-if-obj-nil (gethash member object obj-nil) command)
+                  )
                 (signal-obj-error 'value-error command)))
             ((eq command :call)
-              (apply (if prefetched prefetched-value (gethash member object))
+              (apply (if prefetched
+                prefetched-value
+                  (error-if-obj-nil (gethash member object) command)
+                  )
                 (cons object args)))
             (t (signal-obj-error 'invalid-command command))))
         (signal-obj-error 'first-argument command))
