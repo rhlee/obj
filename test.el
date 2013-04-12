@@ -189,5 +189,15 @@
       (obj object 'x)
       (+ x y z)))))
 
+(ert-deftest obj-test-22-rm ()
+  (let
+    ((object (obj))
+    (obj object 'x t)
+    (obj object :rm x)
+    (should (eq
+      (car (cdr (should-error
+        (obj (obj) :get 'x)
+        :type 'obj-error)))
+      'value-error)))))
+
 (ert t)
-;;no args
