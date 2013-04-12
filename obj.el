@@ -78,18 +78,13 @@
               (if (eq value-length 0)
                 (if prefetched
                   prefetched-value
-                  ;; (let ((value (gethash member object obj-nil)))
-                  ;;   (if (eq value obj-nil)
-                  ;;     (signal-obj-error 'no-value command)
-                  ;;     value))
-                  (error-if-obj-nil (gethash member object obj-nil) command)
-                  )
+                  (error-if-obj-nil (gethash member object obj-nil) command))
                 (signal-obj-error 'value-error command)))
             ((eq command :call)
-              (apply (if prefetched
-                prefetched-value
-                  (error-if-obj-nil (gethash member object) command)
-                  )
+              (apply
+                (if prefetched
+                  prefetched-value
+                  (error-if-obj-nil (gethash member object) command))
                 (cons object args)))
             (t (signal-obj-error 'invalid-command command))))
         (signal-obj-error 'first-argument command))
