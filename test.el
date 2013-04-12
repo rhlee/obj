@@ -241,10 +241,10 @@
 (ert-deftest obj-test-28-apply ()
   (let
     ((apply-list
-      (obj-test-generate-random-number-list 10
-        (obj-test-generate-random-number-list 10)))
+      (obj-test-random-number-list 10
+        (obj-test-random-number-list 10)))
     (object (obj)))
-    (obj object 'test (lambda (o &rest args) (apply '+ args)))
+    (obj object 'test (lambda (o &rest args) (apply 'apply '+ args)))
     (should (eq
       (obj object :apply 'test apply-list)
       (apply 'apply '+ apply-list)))))
