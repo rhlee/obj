@@ -75,11 +75,11 @@
                 (puthash member (car args) object)
                 (signal-obj-error 'value-error command)))
             ((eq command :get)
-              (if (eq value-length 0)
+              (if args
+                (signal-obj-error 'value-error command)
                 (if prefetched
                   prefetched-value
-                  (error-if-obj-nil (gethash member object obj-nil) command))
-                (signal-obj-error 'value-error command)))
+                  (error-if-obj-nil (gethash member object obj-nil) command))))
             ((eq command :call)
               (apply
                 (if prefetched
@@ -102,3 +102,4 @@
         (signal-obj-error 'first-argument command))
       (make-hash-table))))
 ;;move args down (into cond)
+;;args nil?
