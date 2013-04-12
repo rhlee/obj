@@ -86,6 +86,11 @@
                   prefetched-value
                   (error-if-obj-nil (gethash member object obj-nil) command))
                 (cons object args)))
+            ((eq command :with)
+              (puthash member
+                (funcall (car args)
+                  (error-if-obj-nil (gethash member object obj-nil) command))
+                object))
             (t (signal-obj-error 'invalid-command command))))
         (signal-obj-error 'first-argument command))
       (make-hash-table))))
