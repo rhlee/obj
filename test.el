@@ -256,6 +256,21 @@
       :type 'obj-error)))
     'value-error)))
 
+(ert-deftest obj-test-30-with-args ()
+  (let
+    ((object (obj))
+    (x (random 10))
+    (apply-list
+      (obj-test-random-number-list 10
+        (obj-test-random-number-list 10))))
+    (obj object 'x x)
+    (should (eq
+      (obj object :with-apply 'x (symbol-function '+) apply-list)
+      (apply '+ (cons x apply-list))))
+    (should (eq
+      (obj object 'x)
+      (apply '+ (cons x apply-list))))))
+
 (ert t)
 ;;check args
 
