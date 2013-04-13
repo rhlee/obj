@@ -249,6 +249,13 @@
       (obj object :apply 'test apply-list)
       (apply 'apply '+ apply-list)))))
 
+(ert-deftest obj-test-29-apply-takes-1-value-exactly ()
+  (should (eq
+    (car (cdr (should-error
+      (obj (obj) :apply 'test 123 123 123)
+      :type 'obj-error)))
+    'value-error)))
+
 (ert t)
 ;;check args
 

@@ -103,9 +103,11 @@
                 (gethash member object (car args))
                 (signal-obj-error 'value-error command)))
             ((eq command :apply)
-              (apply 'apply
-                (error-if-obj-nil (gethash member object obj-nil) command)
-                object args))
+              (if (eq (length args) 1)
+                (apply 'apply
+                  (error-if-obj-nil (gethash member object obj-nil) command)
+                  object args)
+                (signal-obj-error 'value-error command)))
             (t (signal-obj-error 'invalid-command command))))
         (signal-obj-error 'first-argument command))
       (make-hash-table))))
