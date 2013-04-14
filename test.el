@@ -271,15 +271,15 @@
       (obj object 'x)
       (apply 'apply '+ (cons x apply-list))))))
 
-(ert-deftest obj-test-31-chain ()
-  (let
-    ((object (obj))
-    (x (random 10)))
-    (obj object 'o object)
-    (obj object 'x x)
-    (should (eq
-      (obj object :chain '(o) '(x))
-      x))))
+;; (ert-deftest obj-test-31-chain ()
+;;   (let
+;;     ((object (obj))
+;;     (x (random 10)))
+;;     (obj object 'o object)
+;;     (obj object 'x x)
+;;     (should (eq
+;;       (obj object :chain '(o) '(x))
+;;       x))))
 
 (ert t)
 ;;check args
